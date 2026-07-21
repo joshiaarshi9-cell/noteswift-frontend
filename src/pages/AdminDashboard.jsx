@@ -1,32 +1,23 @@
 import Sidebar from "../components/admin/Sidebar";
 import Topbar from "../components/admin/Topbar";
+import InviteEmployeeForm from "../components/admin/InviteEmployeeForm";
 
 const AdminDashboard = () => {
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex">
-
+    <div className="min-h-screen flex bg-gray-100">
       <Sidebar />
 
       <div className="flex-1 p-8">
-
         <Topbar />
 
-        <div className="bg-white rounded-2xl shadow-sm border p-8">
-
-          <h2 className="text-3xl font-bold mb-6">
+        <div className="bg-white rounded-2xl p-8 mt-6 shadow">
+          <h2 className="text-2xl font-bold mb-6">
             Invite your Employee
           </h2>
 
-          <hr />
-
-          <div className="mt-10 text-gray-500">
-            Form will come here...
-          </div>
-
+          <InviteEmployeeForm />
         </div>
-
       </div>
-
     </div>
   );
 };
