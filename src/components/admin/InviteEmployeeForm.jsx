@@ -3,87 +3,76 @@ import SelectField from "./SelectField";
 
 const InviteEmployeeForm = () => {
   return (
-    <div className="mt-8">
+    <form className="grid grid-cols-2 gap-x-8 gap-y-7">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Email */}
+      <InputField
+        label="Email Address"
+        type="email"
+        placeholder="Enter employee email"
+      />
 
-        <InputField
-          label="Email Address"
-          placeholder="Enter employee email"
-          type="email"
-        />
+      {/* Department */}
+      <SelectField
+        label="Department"
+        options={[
+          "HR",
+          "Development",
+          "Design",
+          "Marketing",
+          "Sales",
+        ]}
+      />
 
-        <SelectField
-          label="Department"
-          options={[
-            "HR",
-            "IT",
-            "Finance",
-            "Marketing",
-            "Sales",
-          ]}
-        />
+      {/* Designation */}
+      <InputField
+        label="Designation"
+        placeholder="Software Engineer"
+      />
 
-        <InputField
-          label="Designation"
-          placeholder="Enter designation"
-        />
+      {/* Phone */}
+      <InputField
+        label="Phone Number"
+        type="tel"
+        placeholder="+977 98XXXXXXXX"
+      />
 
-        <InputField
-          label="Phone Number"
-          placeholder="+977 98XXXXXXXX"
-        />
+      {/* Role */}
+      <SelectField
+        label="Role"
+        options={[
+          "Admin",
+          "Manager",
+          "Employee",
+        ]}
+      />
 
-        <SelectField
-          label="Role"
-          options={[
-            "Employee",
-            "Manager",
-            "Admin",
-          ]}
-        />
+      {/* Full Name */}
+      <InputField
+        label="Full Name"
+        placeholder="John Doe"
+      />
 
-        <InputField
-          label="Full Name"
-          placeholder="Enter employee name"
-        />
-
-      </div>
-
-      <div className="flex justify-end gap-4 mt-10">
+      {/* Buttons */}
+      <div className="col-span-2 flex justify-end gap-5 pt-6">
 
         <button
-          className="
-            px-8
-            py-3
-            rounded-xl
-            border
-            border-gray-300
-            hover:bg-gray-100
-            transition
-          "
+          type="button"
+          className="px-10 py-3 border border-blue-600 rounded-xl text-blue-600 font-semibold hover:bg-blue-50 transition"
         >
           Cancel
         </button>
 
         <button
-          className="
-            px-8
-            py-3
-            rounded-xl
-            bg-blue-600
-            hover:bg-blue-700
-            text-white
-            font-semibold
-            transition
-          "
+          type="submit"
+          className="px-10 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-md transition"
         >
           Invite Employee
         </button>
 
       </div>
 
-    </div>
+    </form>
   );
 };
 

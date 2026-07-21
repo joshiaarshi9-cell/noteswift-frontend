@@ -4,20 +4,31 @@ import InviteEmployeeForm from "../components/admin/InviteEmployeeForm";
 
 const AdminDashboard = () => {
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen bg-[#F7F8FC] flex">
+      {/* Sidebar */}
       <Sidebar />
 
-      <div className="flex-1 p-8">
+      {/* Main Content */}
+      <main className="flex-1 px-10 py-8">
         <Topbar />
 
-        <div className="bg-white rounded-2xl p-8 mt-6 shadow">
-          <h2 className="text-2xl font-bold mb-6">
-            Invite your Employee
-          </h2>
+        {/* White Card */}
+        <div className="mt-8 bg-white rounded-[24px] shadow-lg border border-gray-100 px-10 pt-10 pb-8 w-full">
+          {/* Heading */}
+          <div className="mb-8">
+            <h2 className="text-[36px] font-bold text-gray-900">
+              Invite your Employee
+            </h2>
 
+            <p className="mt-2 text-gray-500 text-lg">
+              Fill the employee details below.
+            </p>
+          </div>
+
+          {/* Form */}
           <InviteEmployeeForm />
         </div>
-      </div>
+      </main>
     </div>
   );
 };

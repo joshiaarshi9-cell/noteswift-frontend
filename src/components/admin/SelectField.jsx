@@ -1,31 +1,40 @@
 const SelectField = ({
   label,
-  options,
+  options = [],
+  value,
+  onChange,
 }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-semibold text-gray-700">
+    <div className="flex flex-col">
+      <label className="mb-2 text-[15px] font-medium text-gray-700">
         {label}
       </label>
 
       <select
+        value={value}
+        onChange={onChange}
         className="
+          h-14
           w-full
-          h-12
           rounded-xl
           border
           border-gray-300
+          bg-white
           px-4
+          text-gray-700
           outline-none
-          focus:border-blue-500
+          transition
+          focus:border-blue-600
           focus:ring-2
           focus:ring-blue-200
         "
       >
-        <option>Select</option>
+        <option value="">Select</option>
 
-        {options.map((item) => (
-          <option key={item}>{item}</option>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
         ))}
       </select>
     </div>

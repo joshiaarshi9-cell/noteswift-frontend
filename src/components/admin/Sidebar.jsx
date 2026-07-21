@@ -1,150 +1,89 @@
 import {
   LayoutDashboard,
   Users,
-  Calendar,
+  CalendarDays,
   FileText,
   Building2,
   BarChart3,
   Settings,
   LogOut,
-  UserCircle2,
 } from "lucide-react";
 
 const menuItems = [
-  {
-    icon: LayoutDashboard,
-    label: "Dashboard",
-  },
-  {
-    icon: Users,
-    label: "Employees",
-    active: true,
-  },
-  {
-    icon: Calendar,
-    label: "Attendance",
-  },
-  {
-    icon: FileText,
-    label: "Leaves",
-  },
-  {
-    icon: Building2,
-    label: "Departments",
-  },
-  {
-    icon: BarChart3,
-    label: "Reports",
-  },
-  {
-    icon: Settings,
-    label: "Settings",
-  },
+  { icon: LayoutDashboard, label: "Dashboard" },
+  { icon: Users, label: "Employees", active: true },
+  { icon: CalendarDays, label: "Attendance" },
+  { icon: FileText, label: "Leaves" },
+  { icon: Building2, label: "Departments" },
+  { icon: BarChart3, label: "Reports" },
+  { icon: Settings, label: "Settings" },
 ];
 
 const Sidebar = () => {
   return (
     <aside className="w-72 bg-white border-r flex flex-col justify-between">
 
-      {/* Logo */}
-
       <div>
-
-        <div className="flex items-center gap-4 p-8">
-
+        {/* Logo */}
+        <div className="flex items-center gap-3 p-6 border-b">
           <img
             src="/images/logo.jpeg"
-            alt="logo"
-            className="w-16 h-16 rounded-full border"
+            alt="Noteswift"
+            className="w-12 h-12 rounded-xl"
           />
 
           <div>
-            <h1 className="text-3xl font-bold">
-              Noteswift
-            </h1>
-
-            <p className="text-gray-500">
-              Attendance Management
+            <h2 className="text-xl font-bold">Noteswift</h2>
+            <p className="text-xs text-gray-500">
+              Attendance System
             </p>
-
           </div>
-
         </div>
 
         {/* Menu */}
-
-        <div className="px-5 mt-6 space-y-3">
-
-          {menuItems.map((item, index) => {
-
+        <div className="px-4 py-6 space-y-2">
+          {menuItems.map((item) => {
             const Icon = item.icon;
 
             return (
-
               <button
-                key={index}
-                className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition
-                ${
+                key={item.label}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   item.active
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
-
-                <Icon size={22} />
-
-                <span className="text-lg">
-                  {item.label}
-                </span>
-
+                <Icon size={20} />
+                <span>{item.label}</span>
               </button>
-
             );
           })}
-
         </div>
-
       </div>
 
       {/* Bottom */}
+      <div className="border-t p-5">
+        <div className="flex items-center gap-3">
+          <img
+            src="https://i.pravatar.cc/100"
+            alt="Admin"
+            className="w-12 h-12 rounded-full"
+          />
 
-      <div className="p-6">
-
-        <div className="border rounded-2xl p-4 flex justify-between items-center">
-
-          <div className="flex gap-3 items-center">
-
-            <UserCircle2
-              className="text-blue-600"
-              size={45}
-            />
-
-            <div>
-
-              <h3 className="font-semibold">
-                Admin
-              </h3>
-
-              <p className="text-sm text-gray-500">
-                Administrator
-              </p>
-
-            </div>
-
+          <div>
+            <h3 className="font-semibold">Admin</h3>
+            <p className="text-sm text-gray-500">
+              Administrator
+            </p>
           </div>
-
         </div>
 
-        <button className="flex items-center gap-3 mt-8 text-gray-700">
-
-          <LogOut />
-
+        <button className="flex items-center gap-2 text-red-500 mt-6 hover:text-red-600">
+          <LogOut size={18} />
           Logout
-
         </button>
-
       </div>
-
     </aside>
   );
 };
