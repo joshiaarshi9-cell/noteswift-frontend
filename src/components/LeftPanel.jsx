@@ -1,13 +1,4 @@
-import {
-  Users,
-  UserCheck,
-  UserMinus,
-  CalendarDays,
-  BarChart3,
-  Settings,
-  ClipboardList,
-  Home,
-} from "lucide-react";
+import { Users, UserCheck, UserMinus, CalendarDays, BarChart3, Settings, ClipboardList, Home, } from "lucide-react";
 
 const LeftPanel = () => {
   return (
@@ -120,11 +111,11 @@ const LeftPanel = () => {
 
                 <div className="h-48 mt-6 flex items-end justify-between">
 
-                  {[40,70,60,120,90,150,130,180].map((h,index)=>(
+                  {[40, 70, 60, 120, 90, 150, 130, 180].map((h, index) => (
                     <div
                       key={index}
                       className="bg-blue-600 rounded-t-md w-6"
-                      style={{height:`${h}px`}}
+                      style={{ height: `${h}px` }}
                     ></div>
                   ))}
 
