@@ -1,25 +1,12 @@
-import {
-  LayoutDashboard,
-  Users,
-  CalendarDays,
-  FileText,
-  Building2,
-  BarChart3,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { LogOut } from 'lucide-react';
+import { menus } from '../../Data/menu';
+import { NavLink } from "react-router-dom";
 
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard" },
-  { icon: Users, label: "Employees", active: true },
-  { icon: CalendarDays, label: "Attendance" },
-  { icon: FileText, label: "Leaves" },
-  { icon: Building2, label: "Departments" },
-  { icon: BarChart3, label: "Reports" },
-  { icon: Settings, label: "Settings" },
-];
 
 const Sidebar = () => {
+
+  const menuItems = menus["admin"];
+
   return (
     <aside className="w-72 bg-white border-r flex flex-col justify-between">
 
@@ -41,26 +28,30 @@ const Sidebar = () => {
         </div>
 
         {/* Menu */}
+
         <div className="px-4 py-6 space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
 
             return (
-              <button
-                key={item.label}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                  item.active
+              <NavLink
+                  key={item.label}
+                  to={item.path}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${item.active
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                <Icon size={20} />
-                <span>{item.label}</span>
-              </button>
+                    }`}
+                >
+                  <Icon size={20} />
+                  <span>{item.label}</span>
+                    
+
+              </NavLink>
             );
           })}
         </div>
       </div>
+
 
       {/* Bottom */}
       <div className="border-t p-5">

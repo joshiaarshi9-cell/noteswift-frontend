@@ -1,5 +1,6 @@
-import LeftPanel from "../components/LeftPanel";
-import LoginForm from "../components/LoginForm";
+import LeftPanel from "../../components/loginCompo/LeftPanel";
+import LoginForm from "../../components/loginCompo/LoginForm";
+
 
 const Login = () => {
   return (
