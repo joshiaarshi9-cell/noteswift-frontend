@@ -22,7 +22,7 @@ const WelcomeCard = ({ user }) => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-6 shadow-lg">
+    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl p-5 shadow-lg">
       <div className="flex items-center justify-between flex-wrap gap-5">
         <div>
           <h2 className="text-3xl font-bold">

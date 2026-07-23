@@ -63,8 +63,10 @@ const AppRoutes = () => {
         {/* <Route path="/reports" element={<Reports />} /> */}
 
         {/* Settings */}
-        <Route path="/settings" element={<Settings />} />
       </Route>
+      
+      <Route path="/settings" element={<Settings />} />
+
     </Routes>
   );
 };
