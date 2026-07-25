@@ -2,32 +2,43 @@ import { Mail, Lock, EyeOff, ShieldCheck, ArrowRight } from "lucide-react";
 import { login } from "../../services/authService";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { setUser } = useAuth();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  try {
-    const data = await login({
-      email,
-      password,
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // Optional: Success toast
-    // toast.success("Login successful!");
-  } catch (error) {
-    console.error(error.response?.data || error.message);
+    try {
+      const data = await login({
+        email,
+        password,
+      });
 
-    toast.error(
-      error.response?.data?.message || "Invalid email or password"
-    );
-  }
-};
+      // Optional: Success toast
+      toast.success("Login successful!");
+      setUser(data.user);
+
+      navigate("/dashboard");
+      console.log(data.user);
+
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+
+      toast.error(
+        error.response?.data?.message || "Invalid email or password"
+      );
+    }
+  };
 
 
   return (
@@ -120,6 +131,7 @@ const handleSubmit = async (e) => {
           <button className="w-full h-14 mt-8 rounded-xl bg-gradient-to-r from-blue-700 to-blue-500 text-white font-semibold text-xl flex justify-center items-center gap-3 hover:scale-[1.02] duration-300">
             Sign In
             <ArrowRight size={22} />
+
           </button>
         </form>
         {/* Divider */}
@@ -137,28 +149,9 @@ const handleSubmit = async (e) => {
         {/* Admin Button */}
 
         <button
-          className="
-          w-full
-          h-14
-          rounded-xl
-          border-2
-          border-blue-300
-          flex
-          justify-center
-          items-center
-          gap-3
-          font-semibold
-          text-lg
-          hover:bg-blue-50
-          "
-        >
-          <ShieldCheck
-            size={20}
-            className="text-blue-600"
-          />
-
+          className="w-full h-14 rounded-xl border-2 border-blue-300 flex justify-center items-center gap-3 font-semibold text-lg hover:bg-blue-50">
+          <ShieldCheck size={20} className="text-blue-600" />
           Sign in as Admin
-
         </button>
 
         {/* Footer */}

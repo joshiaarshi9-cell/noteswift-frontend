@@ -1,11 +1,14 @@
 import { LogOut } from 'lucide-react';
 import { menus } from '../../Data/menu';
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"
 
 
 const Sidebar = () => {
+  const { user } = useAuth({})
 
-  const menuItems = menus["admin"];
+  const menuItems = menus[user?.role] || [];
+  
 
   return (
     <aside className="w-72 bg-white border-r flex flex-col justify-between">
