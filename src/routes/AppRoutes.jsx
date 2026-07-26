@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 // Auth
 import Login from "../pages/auth/Login";
@@ -22,25 +23,35 @@ import MyAttendance from "../pages/attendance/MyAttendance";
 import Leaves from "../pages/leave/Leaves";
 import LeaveRequest from "../pages/leave/LeaveRequest";
 
-// Department
-// import Departments from "../pages/department/Departments";
-
-// Reports
-// import Reports from "../pages/reports/Reports";
-
 // Settings
 import Settings from "../pages/settings/Settings";
+
+// Protected Route
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Authentication */}
+      {/* Public Routes */}
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
 
-      {/* Dashboard Layout */}
-      <Route element={<DashboardLayout />}>
-        {/* Dashboard */}
+      {/* Protected Routes */}
+      <Route
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/dashboard" element={<Dashboard />} />
 
         {/* Employee */}
@@ -56,17 +67,12 @@ const AppRoutes = () => {
         <Route path="/leaves" element={<Leaves />} />
         <Route path="/leave-request" element={<LeaveRequest />} />
 
-        {/* Department */}
-        {/* <Route path="/departments" element={<Departments />} /> */}
-
-        {/* Reports */}
-        {/* <Route path="/reports" element={<Reports />} /> */}
-
         {/* Settings */}
+        <Route path="/settings" element={<Settings />} />
       </Route>
-      
-      <Route path="/settings" element={<Settings />} />
 
+      {/* Invalid Route */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };
