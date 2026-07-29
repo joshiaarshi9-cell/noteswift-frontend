@@ -1,47 +1,57 @@
-import WelcomeCard from "../../components/dashboardCommon/WelcomeCard"
+import { useAuth } from "../../context/AuthContext";
 
+import WelcomeCard from "../../components/dashboardCommon/WelcomeCard";
+import StatsCards from "../../components/dashboardCommon/StatsCards";
+import AttendanceSummary from "../../components/dashboardCommon/AttendanceSummary";
+import AttendanceChart from "../../components/dashboardCommon/AttendanceChart";
+import RecentEmployees from "../../components/dashboardCommon/RecentEmployees";
+import TodayAttendance from "../../components/dashboardCommon/TodayAttendance";
 
 const Dashboard = () => {
-  // const { user } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div className="space-y-6">
 
-      {/* Common */}
       <WelcomeCard />
 
-      {/* <WelcomeCard user={user} /> */}
+      {/* Admin */}
+      {user?.role === "admin" && (
+        <>
+          <StatsCards />
 
-      {/* Common */}
-      {/* <QuickStats role={user.role} /> */}
 
-      {/* Admin + HR */}
-      {/* {(user.role === "admin" || user.role === "hr") && (
-        <AttendanceOverview />
-      )} */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <AttendanceSummary />
+            <AttendanceChart />
+            <RecentEmployees />
+            <TodayAttendance />
+          </div>
+        </>
+      )}
 
-      {/* Admin Only */}
-      {/* {user.role === "admin" && (
-        <DepartmentSummary />
-      )} */}
+      {/* HR */}
+      {user?.role === "hr" && (
+        <>
+          <StatsCards />
+          <AttendanceChart />
 
-      {/* Admin + HR */}
-      {/* {(user.role === "admin" || user.role === "hr") && (
-        <RecentEmployees />
-      )} */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <TodayAttendance />
+            <RecentEmployees />
+          </div>
+        </>
+      )}
 
-      {/* Employee Only */}
-      {/* {user.role === "employee" && (
-        <MyAttendance />
-      )} */}
-
-      {/* Employee Only */}
-      {/* {user.role === "employee" && (
-        <LeaveBalance />
-      )} */}
-
-      {/* Common */}
-      {/* <Announcements /> */}
+      {/* Employee */}
+      {user?.role === "employee" && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <AttendanceSummary />
+            <AttendanceChart />
+          </div>
+        </>
+      )}
 
     </div>
   );

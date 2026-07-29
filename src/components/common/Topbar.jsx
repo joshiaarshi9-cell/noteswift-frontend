@@ -2,12 +2,21 @@ import {
   Search,
   CalendarDays,
   Bell,
+  Menu,
+  X,
 } from "lucide-react";
 
-const Topbar = () => {
+const Topbar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-4">
+
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden mr-3"
+        >
+          {sidebarOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
 
         {/* Search */}
         <div className="relative w-full max-w-sm">

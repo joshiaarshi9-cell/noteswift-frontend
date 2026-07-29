@@ -1,21 +1,19 @@
-import { LogOut } from 'lucide-react';
-import { menus } from '../../Data/menu';
+import { LogOut, X } from "lucide-react";
+import { menus } from "../../Data/menu";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "../../context/AuthContext";
 
-
-const Sidebar = () => {
-  const { user } = useAuth({})
+const Sidebar = ({ closeSidebar }) => {
+  const { user } = useAuth();
 
   const menuItems = menus[user?.role] || [];
-  
 
   return (
-    <aside className="w-72 bg-white border-r flex flex-col justify-between">
+    <div className="h-full bg-white border-r flex flex-col">
 
-      <div>
-        {/* Logo */}
-        <div className="flex items-center gap-3 p-6 border-b">
+      {/* Logo */}
+      <div className="flex items-center justify-between p-6 border-b shrink-0">
+        <div className="flex items-center gap-3">
           <img
             src="/images/logo.jpeg"
             alt="Noteswift"
@@ -30,34 +28,43 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* Menu */}
+        <button
+          onClick={closeSidebar}
+          className="lg:hidden"
+        >
+          <X size={24} />
+        </button>
+      </div>
 
-        <div className="px-4 py-6 space-y-2">
+      {/* Menu */}
+      <div className="flex-1 overflow-y-auto px-4 py-6">
+        <div className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
 
             return (
               <NavLink
-                  key={item.label}
-                  to={item.path}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${item.active
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                    }`}
-                >
-                  <Icon size={20} />
-                  <span>{item.label}</span>
-                    
-
+                key={item.label}
+                to={item.path}
+                onClick={closeSidebar}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    isActive
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`
+                }
+              >
+                <Icon size={20} />
+                <span>{item.label}</span>
               </NavLink>
             );
           })}
         </div>
       </div>
 
-
       {/* Bottom */}
-      <div className="border-t p-5">
+      <div className="border-t p-4 shrink-0">
         <div className="flex items-center gap-3">
           <img
             src="https://i.pravatar.cc/100"
@@ -66,9 +73,12 @@ const Sidebar = () => {
           />
 
           <div>
-            <h3 className="font-semibold">Admin</h3>
-            <p className="text-sm text-gray-500">
-              Administrator
+            <h3 className="font-semibold">
+              {user?.fullName || "Admin"}
+            </h3>
+
+            <p className="text-sm text-gray-500 capitalize">
+              {user?.role || "Administrator"}
             </p>
           </div>
         </div>
@@ -78,7 +88,7 @@ const Sidebar = () => {
           Logout
         </button>
       </div>
-    </aside>
+    </div>
   );
 };
 

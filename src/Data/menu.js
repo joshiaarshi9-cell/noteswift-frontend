@@ -83,6 +83,11 @@ export const menus = {
 
   employee: [
     {
+     icon: LayoutDashboard,
+      label: "Dashboard",
+      path: "/dashboard",
+    },
+    {
       icon: CalendarDays,
       label: "My Attendance",
       path: "/my-attendance",

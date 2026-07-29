@@ -25,10 +25,19 @@ import LeaveRequest from "../pages/leave/LeaveRequest";
 
 // Settings
 import Settings from "../pages/settings/Settings";
+import RegisterInvitation from "../pages/auth/Register";
 
 // Protected Route
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -43,6 +52,8 @@ const AppRoutes = () => {
       {/* Public Routes */}
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
+
+      <Route path="/register" element={<RegisterInvitation />} />
 
       {/* Protected Routes */}
       <Route

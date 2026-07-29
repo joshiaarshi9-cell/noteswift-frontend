@@ -1,7 +1,50 @@
+import { useState } from "react";
 import InputField from "../../components/common/InputField";
 import SelectField from "../../components/common/SelectField";
+import { sendInvitation } from "../../services/invitationServices";
+import toast from "react-hot-toast";
 
 const InviteEmployee = () => {
+
+  const [formData, setFormData] = useState({
+    employeeId: "",
+    fullName: "",
+    email: "",
+    phone: "",
+    department: "",
+    designation: "",
+    role: "Employee",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await sendInvitation(formData);
+
+      toast.success(data.message);
+
+      setFormData({
+        employeeId: "",
+        fullName: "",
+        email: "",
+        phone: "",
+        department: "",
+        designation: "",
+        role: "employee",
+      });
+
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <>
       <div className="mb-8">
@@ -14,18 +57,35 @@ const InviteEmployee = () => {
         </p>
       </div>
 
-      <form className="grid grid-cols-2 gap-x-8 gap-y-7">
+      <form className="grid grid-cols-2 gap-x-8 gap-y-7"
+        onSubmit={handleSubmit}
+      >
 
         {/* Email */}
         <InputField
+          label="Employee ID"
+          type="text"
+          name="employeeId"
+          value={formData.employeeId}
+          onChange={handleChange}
+          placeholder="Enter your employee ID"
+        />
+
+        <InputField
           label="Email Address"
           type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
           placeholder="Enter employee email"
         />
 
         {/* Department */}
         <SelectField
           label="Department"
+          name="department"
+          value={formData.department}
+          onChange={handleChange}
           options={[
             "HR",
             "Development",
@@ -38,6 +98,9 @@ const InviteEmployee = () => {
         {/* Designation */}
         <InputField
           label="Designation"
+          name="designation"
+          value={formData.designation}
+          onChange={handleChange}
           placeholder="Software Engineer"
         />
 
@@ -45,28 +108,36 @@ const InviteEmployee = () => {
         <InputField
           label="Phone Number"
           type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
           placeholder="+977 98XXXXXXXX"
         />
 
         {/* Role */}
         <SelectField
           label="Role"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
           options={[
-            "Admin",
-            "Manager",
-            "Employee",
+            "admin",
+            "hr",
+            "employee",
           ]}
         />
 
         {/* Full Name */}
         <InputField
           label="Full Name"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
           placeholder="John Doe"
         />
 
         {/* Buttons */}
         <div className="col-span-2 flex justify-end gap-5 pt-6">
-
           <button
             type="button"
             className="px-10 py-3 border border-blue-600 rounded-xl text-blue-600 font-semibold hover:bg-blue-50 transition"
@@ -80,9 +151,7 @@ const InviteEmployee = () => {
           >
             Invite Employee
           </button>
-
         </div>
-
       </form>
     </>
   );
