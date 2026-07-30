@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = ({ closeSidebar }) => {
   const { user } = useAuth();
+  console.log(user)
 
   const menuItems = menus[user?.role] || [];
 
@@ -74,11 +75,11 @@ const Sidebar = ({ closeSidebar }) => {
 
           <div>
             <h3 className="font-semibold">
-              {user?.fullName || "Admin"}
+              {user.fullName}
             </h3>
 
             <p className="text-sm text-gray-500 capitalize">
-              {user?.role || "Administrator"}
+              {user?.role}
             </p>
           </div>
         </div>

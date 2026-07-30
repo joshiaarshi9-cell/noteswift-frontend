@@ -1,23 +1,27 @@
 const employees = [
   {
-    name: "Aarav Sharma",
-    role: "Frontend Developer",
-    status: "Present",
+    _id: 1,
+    employeeId: "EMP001",
+    fullName: "Aarav Sharma",
+    designation: "Frontend Developer",
+    department: "IT",
+    joinedDate: "28 Jul 2026",
   },
   {
-    name: "Priya Verma",
-    role: "UI/UX Designer",
-    status: "On Leave",
+    _id: 2,
+    employeeId: "EMP002",
+    fullName: "Priya Verma",
+    designation: "UI/UX Designer",
+    department: "Design",
+    joinedDate: "27 Jul 2026",
   },
   {
-    name: "Rahul Singh",
-    role: "Backend Developer",
-    status: "Absent",
-  },
-  {
-    name: "Neha Joshi",
-    role: "HR Manager",
-    status: "Present",
+    _id: 3,
+    employeeId: "EMP003",
+    fullName: "Rahul Singh",
+    designation: "Backend Developer",
+    department: "IT",
+    joinedDate: "25 Jul 2026",
   },
 ];
 
@@ -33,49 +37,61 @@ const getStatusColor = (status) => {
 
 const RecentEmployees = () => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-      <div className="flex justify-between items-center mb-5">
-        <h2 className="text-xl font-bold">
-          Recent Employees
-        </h2>
-
-        <button className="text-blue-600 text-sm font-medium">
-          View All
-        </button>
-      </div>
-
-      <div className="space-y-4">
-        {employees.map((emp, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between hover:bg-gray-50 p-3 rounded-xl duration-200"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold">
-                {emp.name.charAt(0)}
-              </div>
-
-              <div>
-                <h3 className="font-semibold">
-                  {emp.name}
-                </h3>
-
-                <p className="text-gray-500 text-sm">
-                  {emp.role}
-                </p>
-              </div>
-            </div>
-
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                emp.status
-              )}`}
-            >
-              {emp.status}
-            </span>
+    <div className="space-y-5">
+      {employees.map((emp) => (
+        <div
+          key={emp._id}
+          className="
+        flex items-center gap-4
+        bg-white
+        p-5
+        rounded-2xl
+        border border-gray-200
+        shadow-sm
+        hover:shadow-lg
+        hover:-translate-y-1
+        hover:border-blue-300
+        transition-all
+        duration-300
+        cursor-pointer
+      "
+        >
+          {/* Avatar */}
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center text-xl font-bold shadow-md shrink-0">
+            {emp.fullName.charAt(0)}
           </div>
-        ))}
-      </div>
+
+          {/* Employee Info */}
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold text-gray-900">
+              {emp.fullName}
+            </h3>
+
+            <p className="text-sm text-gray-600 mt-1">
+              <span className="font-medium text-gray-700">
+                {emp.employeeId}
+              </span>
+              <span className="mx-2 text-gray-300">•</span>
+              {emp.designation}
+            </p>
+
+            <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+              <span className="px-2 py-1 rounded-full bg-blue-50 text-blue-700 font-medium">
+                {emp.department}
+              </span>
+
+              <span>•</span>
+
+              <span>Joined {emp.joinedDate}</span>
+            </div>
+          </div>
+
+          {/* New Badge */}
+          <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+            New
+          </span>
+        </div>
+      ))}
     </div>
   );
 };

@@ -16,7 +16,7 @@ import InviteEmployee from "../pages/employee/InviteEmployee";
 import Profile from "../pages/employee/Profile";
 
 // Attendance
-import Attendance from "../pages/attendance/Attendance";
+import Attendance from "../pages/Attendance/Attendance"
 import MyAttendance from "../pages/attendance/MyAttendance";
 
 // Leave

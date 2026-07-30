@@ -1,7 +1,7 @@
 import api from "../api/axios";
 
 export const getDashboardSummary = async () => {
-  const response = await api.get("/api/dashboard/summary", {});
+  const response = await api.get("/dashboard/summary", {});
 
   return response.data.summary;
 };

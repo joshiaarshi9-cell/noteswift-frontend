@@ -6,9 +6,30 @@ import AttendanceSummary from "../../components/dashboardCommon/AttendanceSummar
 import AttendanceChart from "../../components/dashboardCommon/AttendanceChart";
 import RecentEmployees from "../../components/dashboardCommon/RecentEmployees";
 import TodayAttendance from "../../components/dashboardCommon/TodayAttendance";
+import { useEffect, useState } from "react";
+import { getDashboardStats } from "../../Data/dashboardStats";
+import { getDashboardSummary } from "../../services/dashboardSummary";
 
 const Dashboard = () => {
   const { user } = useAuth();
+
+  const [summary, setSummary] = useState(null);
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const data = await getDashboardSummary();
+        setSummary(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSummary();
+  }, []);
+
+  const stats = getDashboardStats(summary);
+
 
   return (
     <div className="space-y-6">
@@ -18,11 +39,11 @@ const Dashboard = () => {
       {/* Admin */}
       {user?.role === "admin" && (
         <>
-          <StatsCards />
+          <StatsCards stats={ stats } />
 
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AttendanceSummary />
+            <AttendanceSummary summary= { summary } />
             <AttendanceChart />
             <RecentEmployees />
             <TodayAttendance />
@@ -33,7 +54,7 @@ const Dashboard = () => {
       {/* HR */}
       {user?.role === "hr" && (
         <>
-          <StatsCards />
+          <StatsCards stats={ stats } />
           <AttendanceChart />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -47,7 +68,7 @@ const Dashboard = () => {
       {user?.role === "employee" && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AttendanceSummary />
+            <AttendanceSummary summary= { summary } />
             <AttendanceChart />
           </div>
         </>

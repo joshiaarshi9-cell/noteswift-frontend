@@ -4,55 +4,16 @@ import {
   CalendarDays,
   UserX,
 } from "lucide-react";
+import { getDashboardSummary } from "../../services/dashboardSummary";
+import { useEffect, useState } from "react";
+import { getDashboardStats } from "../../Data/dashboardStats";
 
-const stats = [
-  {
-    title: "Total Employees",
-    value: "248",
-    subtitle: "+12 this month",
-    icon: Users,
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
-    border: "border-blue-200",
-    valueColor: "text-blue-600",
-    subColor: "text-green-600",
-  },
-  {
-    title: "Present Today",
-    value: "186",
-    subtitle: "75% of total",
-    icon: UserCheck,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-600",
-    border: "border-green-200",
-    valueColor: "text-green-600",
-    subColor: "text-gray-500",
-  },
-  {
-    title: "On Leave",
-    value: "12",
-    subtitle: "5% of total",
-    icon: CalendarDays,
-    iconBg: "bg-orange-100",
-    iconColor: "text-orange-500",
-    border: "border-orange-200",
-    valueColor: "text-orange-500",
-    subColor: "text-gray-500",
-  },
-  {
-    title: "Absent Today",
-    value: "50",
-    subtitle: "20% of total",
-    icon: UserX,
-    iconBg: "bg-red-100",
-    iconColor: "text-red-500",
-    border: "border-red-200",
-    valueColor: "text-red-500",
-    subColor: "text-gray-500",
-  },
-];
 
-const StatsCards = () => {
+
+const StatsCards = ({stats = []}) => {
+
+
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {stats.map((item, index) => {

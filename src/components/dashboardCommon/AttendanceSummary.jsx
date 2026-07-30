@@ -1,4 +1,7 @@
-const AttendanceSummary = () => {
+import { getDashboardStats } from "../../Data/dashboardStats";
+
+
+const AttendanceSummary = ({summary}) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
       <h2 className="text-xl font-bold mb-6">
@@ -14,7 +17,7 @@ const AttendanceSummary = () => {
           ></div>
 
           <div className="absolute inset-0 flex flex-col justify-center items-center">
-            <h2 className="text-3xl font-bold text-blue-600">248</h2>
+            <h2 className="text-3xl font-bold text-blue-600">{summary?.totalEmployees}</h2>
             <p className="text-gray-500 text-sm">Employees</p>
           </div>
         </div>
@@ -27,7 +30,7 @@ const AttendanceSummary = () => {
             <span>Present</span>
           </div>
 
-          <span className="font-semibold">186</span>
+          <span className="font-semibold">{summary?.presentToday}</span>
         </div>
 
         <div className="flex justify-between">
@@ -36,7 +39,7 @@ const AttendanceSummary = () => {
             <span>On Leave</span>
           </div>
 
-          <span className="font-semibold">12</span>
+          <span className="font-semibold">{summary?.onLeave}</span>
         </div>
 
         <div className="flex justify-between">
@@ -45,7 +48,7 @@ const AttendanceSummary = () => {
             <span>Absent</span>
           </div>
 
-          <span className="font-semibold">50</span>
+          <span className="font-semibold">{summary?.absentToday}</span>
         </div>
       </div>
     </div>

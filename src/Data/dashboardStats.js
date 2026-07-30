@@ -1,0 +1,53 @@
+import {
+  Users,
+  UserCheck,
+  CalendarDays,
+  UserX,
+} from "lucide-react";
+
+export const getDashboardStats = (summary) => [
+  {
+    title: "Total Employees",
+    value: summary?.totalEmployees ?? 0,
+    subtitle: "Active employees",
+    icon: Users,
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-600",
+    border: "border-blue-200",
+    valueColor: "text-blue-600",
+    subColor: "text-gray-500",
+  },
+  {
+    title: "Present Today",
+    value: summary?.presentToday ?? 0,
+    subtitle: `${summary?.attendancePercentage ?? 0}% attendance today`,
+    icon: UserCheck,
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
+    border: "border-green-200",
+    valueColor: "text-green-600",
+    subColor: "text-green-600",
+  },
+  {
+    title: "On Leave",
+    value: summary?.onLeave ?? 0,
+    subtitle: "Approved leave today",
+    icon: CalendarDays,
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-500",
+    border: "border-orange-200",
+    valueColor: "text-orange-500",
+    subColor: "text-gray-500",
+  },
+  {
+    title: "Absent Today",
+    value: summary?.absentToday ?? 0,
+    subtitle: "Not checked in today",
+    icon: UserX,
+    iconBg: "bg-red-100",
+    iconColor: "text-red-500",
+    border: "border-red-200",
+    valueColor: "text-red-500",
+    subColor: "text-gray-500",
+  },
+];
