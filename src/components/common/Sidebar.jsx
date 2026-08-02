@@ -5,7 +5,6 @@ import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = ({ closeSidebar }) => {
   const { user } = useAuth();
-  console.log(user)
 
   const menuItems = menus[user?.role] || [];
 
