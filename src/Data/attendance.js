@@ -1,0 +1,38 @@
+export const attendance = [
+  {
+    id: "EMP001",
+    name: "Aarav Sharma",
+    department: "IT",
+    checkIn: "09:02 AM",
+    checkOut: "",
+    workingHours: "Running...",
+    status: "Working",
+  },
+  {
+    id: "EMP002",
+    name: "Priya Verma",
+    department: "HR",
+    checkIn: "09:00 AM",
+    checkOut: "06:15 PM",
+    workingHours: "9h 15m",
+    status: "Present",
+  },
+  {
+    id: "EMP003",
+    name: "Rahul Singh",
+    department: "IT",
+    checkIn: "",
+    checkOut: "",
+    workingHours: "--",
+    status: "Absent",
+  },
+  {
+    id: "EMP004",
+    name: "Neha Joshi",
+    department: "Administration",
+    checkIn: "09:20 AM",
+    checkOut: "06:05 PM",
+    workingHours: "8h 45m",
+    status: "Present",
+  },
+];
