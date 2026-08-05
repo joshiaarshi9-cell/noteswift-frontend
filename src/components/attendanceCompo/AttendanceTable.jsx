@@ -1,54 +1,21 @@
+import { useEffect } from "react";
 import AttendanceRow from "./AttendanceRow";
 
-const AttendanceTable = () => {
+const AttendanceTable = ({ employees, loading, fetchEmployees }) => {
+  if (loading) return
+  <div className="relative bg-white rounded-2xl shadow border overflow-x-auto">
 
-  const employees = [
+    {loading && (
+      <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 backdrop-blur-sm">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+      </div>
+    )}
 
-    {
-      id: 1,
-      name: "Aarav Sharma",
-      email: "aarav@gmail.com",
-      department: "IT",
-      status: "Present",
-      checkIn: "09:00 AM",
-      checkOut: "06:00 PM",
-      hours: "9h",
-    },
+    <table className="min-w-full">
+      ...
+    </table>
 
-    {
-      id: 2,
-      name: "Riya Verma",
-      email: "riya@gmail.com",
-      department: "HR",
-      status: "Late",
-      checkIn: "09:35 AM",
-      checkOut: "06:10 PM",
-      hours: "8h 35m",
-    },
-
-    {
-      id: 3,
-      name: "Rahul Singh",
-      email: "rahul@gmail.com",
-      department: "Marketing",
-      status: "Absent",
-      checkIn: "--",
-      checkOut: "--",
-      hours: "--",
-    },
-
-    {
-      id: 4,
-      name: "Ananya Joshi",
-      email: "ananya@gmail.com",
-      department: "Finance",
-      status: "Present",
-      checkIn: "09:10 AM",
-      checkOut: "06:05 PM",
-      hours: "8h 55m",
-    },
-
-  ];
+  </div>;
 
   return (
     <div className="bg-white rounded-2xl shadow border overflow-x-auto">
@@ -80,8 +47,9 @@ const AttendanceTable = () => {
             </th>
 
             <th className="text-left px-6 py-4">
-              Working Hours
+              Action
             </th>
+
 
           </tr>
 
@@ -91,8 +59,9 @@ const AttendanceTable = () => {
 
           {employees.map((employee) => (
             <AttendanceRow
-              key={employee.id}
+              key={employee._id}
               employee={employee}
+              fetchEmployees={fetchEmployees}
             />
           ))}
 
