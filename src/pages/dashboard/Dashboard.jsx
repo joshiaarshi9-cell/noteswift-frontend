@@ -8,12 +8,27 @@ import RecentEmployees from "../../components/dashboardCommon/RecentEmployees";
 import TodayAttendance from "../../components/dashboardCommon/TodayAttendance";
 import { useEffect, useState } from "react";
 import { getDashboardStats } from "../../Data/dashboardStats";
-import { getDashboardSummary } from "../../services/dashboardSummary";
+import { getDashboardSummary, getAttendanceOverview } from "../../services/dashboardSummary";
 
 const Dashboard = () => {
   const { user } = useAuth();
 
   const [summary, setSummary] = useState(null);
+  const [overview, setOverview] = useState([]);
+
+
+  const fetchAttendanceOverview = async () => {
+  try {
+    const data = await getAttendanceOverview();
+    setOverview(data.overview);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+useEffect(() => {
+  fetchAttendanceOverview();
+}, []);
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -44,7 +59,7 @@ const Dashboard = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AttendanceSummary summary= { summary } />
-            <AttendanceChart />
+            <AttendanceChart overview={overview} />
             <RecentEmployees />
             <TodayAttendance />
           </div>
@@ -55,7 +70,7 @@ const Dashboard = () => {
       {user?.role === "hr" && (
         <>
           <StatsCards stats={ stats } />
-          <AttendanceChart />
+          <AttendanceChart overview={overview} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <TodayAttendance />
@@ -69,7 +84,7 @@ const Dashboard = () => {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AttendanceSummary summary= { summary } />
-            <AttendanceChart />
+            <AttendanceChart overview={overview}  />
           </div>
         </>
       )}

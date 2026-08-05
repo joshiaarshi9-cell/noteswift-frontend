@@ -1,7 +1,5 @@
 import AttendanceHeader from "../../components/attendanceCompo/AttendanceHeader";
-import AttendanceStats from "../../components/attendanceCompo/AttendanceStats";
 import AttendanceFilters from "../../components/attendanceCompo/AttendanceFilters";
-import AttendanceChart from "../../components/attendanceCompo/AttendanceChart";
 import AttendanceTable from "../../components/attendanceCompo/AttendanceTable";
 import AttendancePagination from "../../components/attendanceCompo/AttendancePagination";
 
@@ -9,6 +7,11 @@ import { useEffect, useState } from "react";
 import { getEmployees } from "../../services/employeeServies";
 import { getALLEmployees } from "../../Data/employees";
 import { getTodayAttendance } from "../../services/attendenceServices";
+import StatsCards from "../../components/dashboardCommon/StatsCards";
+
+
+import { getDashboardSummary } from "../../services/dashboardSummary";
+import { getDashboardStats } from "../../Data/dashboardStats";
 
 
 const Attendance = () => {
@@ -20,13 +23,16 @@ const Attendance = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [summary, setSummary] = useState(null);
+
+
 
   const fetchEmployees = async () => {
     try {
       setLoading(true);
 
       const employeesData = await getEmployees({
-        search :debouncedSearch,
+        search: debouncedSearch,
         department,
         // role,
         // status,
@@ -57,13 +63,13 @@ const Attendance = () => {
     }
   };
 
-    useEffect(() => {
-  const timer = setTimeout(() => {
-    setDebouncedSearch(search);
-  }, 500);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
 
-  return () => clearTimeout(timer);
-}, [search]);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     fetchEmployees();
@@ -71,7 +77,22 @@ const Attendance = () => {
 
 
 
-  getALLEmployees(employees)
+  getALLEmployees(employees)  
+
+  const fetchSummary = async () => {
+    try {
+      const data = await getDashboardSummary();
+      setSummary(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSummary();
+  }, [employees]);
+
+  const stats = getDashboardStats(summary);
 
 
   return (
@@ -79,7 +100,7 @@ const Attendance = () => {
 
       <AttendanceHeader />
 
-      <AttendanceStats />
+      <StatsCards stats={stats} />
 
       <AttendanceFilters
         search={search}
@@ -90,7 +111,6 @@ const Attendance = () => {
         employees={employees}
       />
 
-      {/* <AttendanceChart /> */}
 
       <AttendanceTable
         employees={employees}

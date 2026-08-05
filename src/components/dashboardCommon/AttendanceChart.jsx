@@ -1,4 +1,9 @@
-const AttendanceChart = () => {
+
+
+const AttendanceChart = ({ overview }) => {
+
+  // console.log(overview); 
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
       <div className="flex justify-between items-center mb-8">
@@ -12,14 +17,15 @@ const AttendanceChart = () => {
       </div>
 
       <div className="h-72 flex items-end justify-between gap-4">
-        {[35, 55, 42, 70, 65, 88, 96].map((value, index) => (
+        {
+        overview.map((value, index) => (
           <div
             key={index}
             className="flex flex-col items-center flex-1"
           >
             <div
               className="w-full bg-blue-500 rounded-t-xl hover:bg-blue-600 duration-300"
-              style={{ height: `${value * 2}px` }}
+              style={{ height: `${value.present * 20}px` }}
             ></div>
 
             <p className="mt-3 text-sm text-gray-500">

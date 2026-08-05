@@ -5,3 +5,13 @@ export const getDashboardSummary = async () => {
 
   return response.data.summary;
 };
+
+
+
+export const getAttendanceOverview = async (range = "1m") => {
+  const res = await api.get("/dashboard/attendance-overview", {
+    params: { range },
+  });
+
+  return res.data;
+};
