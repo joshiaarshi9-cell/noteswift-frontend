@@ -45,13 +45,43 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
-
 const AppRoutes = () => {
+  const { user, loading } = useAuth();
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          user ? (
+            user.role === "admin" ? (
+              <Navigate to="/admin/dashboard" replace />
+            ) : user.role === "hr" ? (
+              <Navigate to="/hr/dashboard" replace />
+            ) : (
+              <Navigate to="/employee/dashboard" replace />
+            )
+          ) : (
+            <Login />
+          )
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          user ? (
+            user.role === "admin" ? (
+              <Navigate to="/admin/dashboard" replace />
+            ) : user.role === "hr" ? (
+              <Navigate to="/hr/dashboard" replace />
+            ) : (
+              <Navigate to="/employee/dashboard" replace />
+            )
+          ) : (
+            <Login />
+          )
+        }
+      />
 
       <Route path="/register" element={<RegisterInvitation />} />
 
@@ -83,7 +113,16 @@ const AppRoutes = () => {
       </Route>
 
       {/* Invalid Route */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route
+        path="*"
+        element={
+          user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
     </Routes>
   );
 };
