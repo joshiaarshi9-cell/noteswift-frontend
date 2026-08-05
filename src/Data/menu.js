@@ -8,6 +8,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import { Wallet } from "lucide-react";
 
 export const menus = {
   admin: [
@@ -36,6 +37,11 @@ export const menus = {
       label: "Leaves",
       path: "/leaves",
     },
+    {
+  icon: Wallet,
+  label: "Payroll",
+  path: "/payroll",
+},
     {
       icon: Building2,
       label: "Departments",
