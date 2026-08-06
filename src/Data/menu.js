@@ -38,10 +38,10 @@ export const menus = {
       path: "/leaves",
     },
     {
-  icon: Wallet,
-  label: "Payroll",
-  path: "/payroll",
-},
+      icon: Wallet,
+      label: "Payroll",
+      path: "/payroll",
+    },
     {
       icon: Building2,
       label: "Departments",
@@ -89,7 +89,7 @@ export const menus = {
 
   employee: [
     {
-     icon: LayoutDashboard,
+      icon: LayoutDashboard,
       label: "Dashboard",
       path: "/dashboard",
     },

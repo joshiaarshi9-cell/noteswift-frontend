@@ -1,4 +1,4 @@
-const AttendancePagination = ({
+const Pagination = ({
   currentPage,
   setCurrentPage,
 }) => {
@@ -33,4 +33,4 @@ const AttendancePagination = ({
   );
 };
 
-export default AttendancePagination;
+export default Pagination;

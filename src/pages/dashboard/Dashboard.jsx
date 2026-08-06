@@ -1,13 +1,13 @@
 import { useAuth } from "../../context/AuthContext";
 
-import WelcomeCard from "../../components/dashboardCommon/WelcomeCard";
-import StatsCards from "../../components/dashboardCommon/StatsCards";
+import Header from "../../components/common/Header"
+import StatsCards from "../../components/common/StatsCards";
 import AttendanceSummary from "../../components/dashboardCommon/AttendanceSummary";
 import AttendanceChart from "../../components/dashboardCommon/AttendanceChart";
 import RecentEmployees from "../../components/dashboardCommon/RecentEmployees";
 import TodayAttendance from "../../components/dashboardCommon/TodayAttendance";
 import { useEffect, useState } from "react";
-import { getDashboardStats } from "../../Data/dashboardStats";
+import { getDashboardStats } from "../../Data/statsCards";
 import { getDashboardSummary, getAttendanceOverview } from "../../services/dashboardSummary";
 
 const Dashboard = () => {
@@ -18,17 +18,17 @@ const Dashboard = () => {
 
 
   const fetchAttendanceOverview = async () => {
-  try {
-    const data = await getAttendanceOverview();
-    setOverview(data.overview);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    try {
+      const data = await getAttendanceOverview();
+      setOverview(data.overview);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-useEffect(() => {
-  fetchAttendanceOverview();
-}, []);
+  useEffect(() => {
+    fetchAttendanceOverview();
+  }, []);
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -49,16 +49,32 @@ useEffect(() => {
   return (
     <div className="space-y-6">
 
-      <WelcomeCard />
+      <Header
+        title={`Good Evening, ${user.fullName} 👋`}
+        subtitle="Welcome back to the Employee Attendance Management System."
+        titleClassName="text-4xl font-extrabold tracking-tight text-white"
+        subtitleClassName="mt-3 text-lg text-blue-100/90 font-normal"
+        rightContent={
+          <div className="text-right text-white">
+            <p className="text-lg font-medium">
+              Wednesday, August 5, 2026
+            </p>
+
+            <p className="mt-2 text-3xl font-bold tracking-wide">
+              11:40 PM
+            </p>
+          </div>
+        }
+      />
 
       {/* Admin */}
       {user?.role === "admin" && (
         <>
-          <StatsCards stats={ stats } />
+          <StatsCards stats={stats} />
 
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AttendanceSummary summary= { summary } />
+            <AttendanceSummary summary={summary} />
             <AttendanceChart overview={overview} />
             <RecentEmployees />
             <TodayAttendance />
@@ -69,7 +85,7 @@ useEffect(() => {
       {/* HR */}
       {user?.role === "hr" && (
         <>
-          <StatsCards stats={ stats } />
+          <StatsCards stats={stats} />
           <AttendanceChart overview={overview} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -83,8 +99,8 @@ useEffect(() => {
       {user?.role === "employee" && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AttendanceSummary summary= { summary } />
-            <AttendanceChart overview={overview}  />
+            <AttendanceSummary summary={summary} />
+            <AttendanceChart overview={overview} />
           </div>
         </>
       )}

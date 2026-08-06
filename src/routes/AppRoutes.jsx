@@ -27,6 +27,9 @@ import LeaveRequest from "../pages/leave/LeaveRequest";
 import Settings from "../pages/settings/Settings";
 import RegisterInvitation from "../pages/auth/Register";
 
+//payroll
+import Payroll from "../pages/payroll/Payroll";
+
 // Protected Route
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -110,6 +113,8 @@ const AppRoutes = () => {
 
         {/* Settings */}
         <Route path="/settings" element={<Settings />} />
+
+        <Route path="/payroll" element={<Payroll /> } />
       </Route>
 
       {/* Invalid Route */}

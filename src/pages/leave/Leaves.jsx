@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import LeaveHeader from "../../components/leaveCompo/LeaveHeader";
-import LeaveStats from "../../components/leaveCompo/LeaveStats";
 import LeaveFilters from "../../components/leaveCompo/LeaveFilters";
 import LeaveTable from "../../components/leaveCompo/LeaveTable";
-import LeavePagination from "../../components/leaveCompo/LeavePagination";
+import Pagination from "../../components/common/Pagination";
+import Header from "../../components/common/Header";
+import StatsCards from "../../components/common/StatsCards";
+import { getLeaveStats } from "../../Data/statsCards";
+import { getLeaveSummary } from "../../services/leaveService";
 
 const Leaves = () => {
 
@@ -14,12 +16,41 @@ const Leaves = () => {
   const [status, setStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [summary, setSummary] = useState(null);
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const data = await getLeaveSummary();
+
+        setSummary(data.summary);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSummary();
+  }, []);
+
+  const stats = getLeaveStats(summary);
+
   return (
     <div className="min-h-screen bg-slate-100 p-6">
 
-      <LeaveHeader />
+      <Header
+        title="Leave Management"
+        subtitle="Manage employee leave requests"
+        titleClassName="text-5xl font-extrabold tracking-tight text-white"
+        subtitleClassName="mt-2 text-lg text-blue-100/90 font-normal"
+        rightContent={
+          <button className="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition">
+            Export
+          </button>}
+      />
 
-      <LeaveStats />
+      {/* <LeaveStats /> */}
+      <StatsCards stats={stats} />
 
       <LeaveFilters
         search={search}
@@ -35,7 +66,7 @@ const Leaves = () => {
 
       <LeaveTable />
 
-      <LeavePagination
+      <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

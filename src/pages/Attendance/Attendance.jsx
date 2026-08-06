@@ -1,17 +1,18 @@
-import AttendanceHeader from "../../components/attendanceCompo/AttendanceHeader";
+import Header from "../../components/common/Header";
 import AttendanceFilters from "../../components/attendanceCompo/AttendanceFilters";
 import AttendanceTable from "../../components/attendanceCompo/AttendanceTable";
-import AttendancePagination from "../../components/attendanceCompo/AttendancePagination";
+import Pagination from "../../components/common/Pagination";
+
 
 import { useEffect, useState } from "react";
 import { getEmployees } from "../../services/employeeServies";
 import { getALLEmployees } from "../../Data/employees";
 import { getTodayAttendance } from "../../services/attendenceServices";
-import StatsCards from "../../components/dashboardCommon/StatsCards";
+import StatsCards from "../../components/common/StatsCards";
 
 
 import { getDashboardSummary } from "../../services/dashboardSummary";
-import { getDashboardStats } from "../../Data/dashboardStats";
+import { getDashboardStats } from "../../Data/statsCards";
 
 
 const Attendance = () => {
@@ -77,7 +78,7 @@ const Attendance = () => {
 
 
 
-  getALLEmployees(employees)  
+  getALLEmployees(employees)
 
   const fetchSummary = async () => {
     try {
@@ -98,7 +99,17 @@ const Attendance = () => {
   return (
     <div className="min-h-screen bg-slate-100 p-6">
 
-      <AttendanceHeader />
+      <Header
+        title="Attendance"
+        subtitle="Manage employee attendance records"
+        titleClassName="text-5xl font-extrabold tracking-tight text-white"
+        subtitleClassName="mt-2 text-lg text-blue-100/90 font-normal"
+        rightContent={
+          <button className="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold hover:bg-blue-50 transition">
+            Export
+          </button> }
+        />
+        
 
       <StatsCards stats={stats} />
 
@@ -120,7 +131,7 @@ const Attendance = () => {
 
       />
 
-      <AttendancePagination
+      <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

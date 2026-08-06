@@ -1,28 +1,28 @@
 import { Eye, Pencil, Trash2 } from "lucide-react";
 
-const EmployeeCard = ({ emp }) => {
+const EmployeeCard = ({ employee }) => {
   return (
     <div className="bg-white border rounded-xl p-4 shadow-sm">
 
       <div className="flex items-center gap-3 mb-4">
 
         <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-          {emp.name.charAt(0)}
+          {employee.fullName.charAt(0)}
         </div>
 
         <div>
-          <h3 className="font-semibold">{emp.name}</h3>
-          <p className="text-sm text-gray-500">{emp.email}</p>
+          <h3 className="font-semibold">{employee.fullName}</h3>
+          <p className="text-sm text-gray-500">{employee.email}</p>
         </div>
 
       </div>
 
       <div className="space-y-2 text-sm">
 
-        <p><strong>ID:</strong> {emp.id}</p>
-        <p><strong>Role:</strong> {emp.role}</p>
-        <p><strong>Department:</strong> {emp.department}</p>
-        <p><strong>Designation:</strong> {emp.designation}</p>
+        <p><strong>ID:</strong> {employee.employeeId}</p>
+        <p><strong>Role:</strong> {employee.role}</p>
+        <p><strong>Department:</strong> {employee.department}</p>
+        <p><strong>Designation:</strong> {employee.designation}</p>
 
       </div>
 

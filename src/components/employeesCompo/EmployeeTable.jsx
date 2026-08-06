@@ -1,5 +1,5 @@
 import EmployeeRow from "./EmployeeRow";
-import EmployeeCard from "./EmployeeCard";
+import EmployeeCard from "./EmployeeCard"
 
 const EmployeeTable = ({ employees }) => {
   return (
@@ -27,7 +27,7 @@ const EmployeeTable = ({ employees }) => {
 
             {employees.length > 0 ? (
               employees.map((emp) => (
-                <EmployeeRow key={emp.id} emp={emp} />
+                <EmployeeRow key={emp._id} emp={emp} />
               ))
             ) : (
               <tr>
@@ -48,8 +48,8 @@ const EmployeeTable = ({ employees }) => {
       <div className="md:hidden space-y-4">
 
         {employees.length > 0 ? (
-          employees.map((emp) => (
-            <EmployeeCard key={emp.id} emp={emp} />
+          employees.map((employee) => (
+            <EmployeeCard key={employee._id} employee={employee} />
           ))
         ) : (
           <div className="bg-white rounded-xl p-6 text-center text-gray-500">

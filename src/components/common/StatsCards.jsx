@@ -1,12 +1,4 @@
-import {
-  Users,
-  UserCheck,
-  CalendarDays,
-  UserX,
-} from "lucide-react";
-import { getDashboardSummary } from "../../services/dashboardSummary";
-import { useEffect, useState } from "react";
-import { getDashboardStats } from "../../Data/dashboardStats";
+
 
 
 
@@ -21,7 +13,7 @@ const StatsCards = ({stats = []}) => {
 
         return (
           <div
-            key={index}
+            key={item.title}
             className={`bg-white rounded-2xl border ${item.border} p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300`}
           >
             <div className="flex justify-between items-center">

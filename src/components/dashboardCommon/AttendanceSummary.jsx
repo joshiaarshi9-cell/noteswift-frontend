@@ -1,4 +1,4 @@
-import { getDashboardStats } from "../../Data/dashboardStats";
+import { getDashboardStats } from "../../Data/statsCards";
 import {
   PieChart,
   Pie,

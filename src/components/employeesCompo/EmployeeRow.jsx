@@ -1,19 +1,20 @@
 import { Eye, Pencil, Trash2 } from "lucide-react";
 
 const EmployeeRow = ({ emp }) => {
+  console.log(emp)
   return (
     <tr className="border-t hover:bg-gray-50">
 
-      <td className="px-6 py-4">{emp.id}</td>
+      <td className="px-6 py-4">{emp.employeeId}</td>
 
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
 
           <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
-            {emp.name.charAt(0)}
+            {emp.fullName?.charAt(0) || "?"}
           </div>
 
-          <span>{emp.name}</span>
+          <span>{emp.fullName}</span>
 
         </div>
       </td>
