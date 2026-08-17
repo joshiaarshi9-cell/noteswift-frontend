@@ -29,7 +29,6 @@ const LoginForm = () => {
       setUser(data.user);
 
       navigate("/dashboard");
-      console.log(data.user);
 
     } catch (error) {
       console.error(error.response?.data || error.message);

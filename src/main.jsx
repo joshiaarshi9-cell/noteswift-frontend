@@ -5,15 +5,18 @@ import App from './App.jsx'
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { EmployeeProvider } from "./context/EmployeeContext";
 
 
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <BrowserRouter>
-      <StrictMode>
-        <Toaster position="top-right" />
-        <App />
-      </StrictMode>
-    </BrowserRouter>
+    <EmployeeProvider>
+      <BrowserRouter>
+        <StrictMode>
+          <Toaster position="top-right" />
+          <App />
+        </StrictMode>
+      </BrowserRouter>
+    </EmployeeProvider>
   </AuthProvider>
 )

@@ -13,7 +13,7 @@ const LeaveFilters = ({
     setSearch("");
     setDepartment("");
     setLeaveType("");
-    setStatus("");
+    setStatus("Pending");
     setCurrentPage(1);
   };
 
@@ -44,11 +44,11 @@ const LeaveFilters = ({
           className="border rounded-xl px-4 py-3"
         >
           <option value="">All Departments</option>
-          <option>IT</option>
-          <option>HR</option>
-          <option>Marketing</option>
-          <option>Finance</option>
-          <option>Sales</option>
+          <option value="IT">IT</option>
+          <option value="HR">HR</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Finance">Finance</option>
+          <option value="Sales">Sales</option>
         </select>
 
         {/* Leave Type */}
@@ -61,10 +61,10 @@ const LeaveFilters = ({
           className="border rounded-xl px-4 py-3"
         >
           <option value="">All Leave Types</option>
-          <option>Annual Leave</option>
-          <option>Sick Leave</option>
-          <option>Casual Leave</option>
-          <option>Emergency Leave</option>
+          <option value="Annual">Annual Leave</option>
+          <option value="Sick">Sick Leave</option>
+          <option value="Casual">Casual Leave</option>
+          <option value="Emergency">Emergency Leave</option>
         </select>
 
         {/* Status */}
@@ -76,10 +76,10 @@ const LeaveFilters = ({
           }}
           className="border rounded-xl px-4 py-3"
         >
-          <option value="">All Status</option>
-          <option>Pending</option>
-          <option>Approved</option>
-          <option>Rejected</option>
+          <option value="Pending">Pending</option>
+          <option value="all">All Status</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
 
         {/* Reset */}

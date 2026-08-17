@@ -17,18 +17,18 @@ const Dashboard = () => {
   const [overview, setOverview] = useState([]);
 
 
-  const fetchAttendanceOverview = async () => {
-    try {
-      const data = await getAttendanceOverview();
-      setOverview(data.overview);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const fetchAttendanceOverview = async () => {
+      try {
+        const data = await getAttendanceOverview();
+        setOverview(data.overview);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  useEffect(() => {
-    fetchAttendanceOverview();
-  }, []);
+    useEffect(() => {
+      fetchAttendanceOverview();
+    }, []);
 
   useEffect(() => {
     const fetchSummary = async () => {

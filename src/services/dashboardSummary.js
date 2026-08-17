@@ -8,7 +8,7 @@ export const getDashboardSummary = async () => {
 
 
 
-export const getAttendanceOverview = async (range = "1m") => {
+export const getAttendanceOverview = async (range = "10d") => {
   const res = await api.get("/dashboard/attendance-overview", {
     params: { range },
   });

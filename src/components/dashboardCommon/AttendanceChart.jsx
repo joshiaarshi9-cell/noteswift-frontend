@@ -18,21 +18,21 @@ const AttendanceChart = ({ overview }) => {
 
       <div className="h-72 flex items-end justify-between gap-4">
         {
-        overview.map((value, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center flex-1"
-          >
+          overview.map((value, index) => (
             <div
-              className="w-full bg-blue-500 rounded-t-xl hover:bg-blue-600 duration-300"
-              style={{ height: `${value.present * 20}px` }}
-            ></div>
+              key={index}
+              className="flex flex-col items-center flex-1"
+            >
+              <div
+                className="w-full bg-blue-500 rounded-t-xl hover:bg-blue-600 duration-300"
+                style={{ height: `${value.present * 20}px` }}
+              ></div>
 
-            <p className="mt-3 text-sm text-gray-500">
-              {index + 1} May
-            </p>
-          </div>
-        ))}
+              <p className="mt-3 text-sm text-gray-500">
+                {value.date}
+              </p>
+            </div>
+          ))}
       </div>
     </div>
   );

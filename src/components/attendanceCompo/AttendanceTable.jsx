@@ -12,7 +12,7 @@ const AttendanceTable = ({ employees, loading, fetchEmployees }) => {
     )}
 
     <table className="min-w-full">
-      ...
+      Loading...
     </table>
 
   </div>;

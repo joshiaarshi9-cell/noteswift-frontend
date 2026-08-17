@@ -4,7 +4,7 @@ import AttendanceTable from "../../components/attendanceCompo/AttendanceTable";
 import Pagination from "../../components/common/Pagination";
 
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getEmployees } from "../../services/employeeServies";
 import { getALLEmployees } from "../../Data/employees";
 import { getTodayAttendance } from "../../services/attendenceServices";
@@ -25,6 +25,7 @@ const Attendance = () => {
   const [loading, setLoading] = useState(false);
 
   const [summary, setSummary] = useState(null);
+
 
 
 

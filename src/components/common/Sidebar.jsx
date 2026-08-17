@@ -1,12 +1,34 @@
 import { LogOut, X } from "lucide-react";
 import { menus } from "../../Data/menu";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { logout } from "../../services/authService";
+import toast from "react-hot-toast";
 
 const Sidebar = ({ closeSidebar }) => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const menuItems = menus[user?.role] || [];
+
+  const logOut = async () => {
+    console.log("🔥 LOGOUT BUTTON CLICKED");
+
+    try {
+      const data = await logout();
+
+      console.log("🔥 LOGOUT API RESPONSE:", data);
+
+      // setUser(null);
+
+      toast.success(data.message);
+
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.log("🔥 LOGOUT ERROR:", error);
+      toast.error(error.response?.data?.message || "Logout failed");
+    }
+  };
 
   return (
     <div className="h-full bg-white border-r flex flex-col">
@@ -48,10 +70,9 @@ const Sidebar = ({ closeSidebar }) => {
                 to={item.path}
                 onClick={closeSidebar}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                    isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-700 hover:bg-gray-100"
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
                   }`
                 }
               >
@@ -82,8 +103,9 @@ const Sidebar = ({ closeSidebar }) => {
             </p>
           </div>
         </div>
-
-        <button className="flex items-center gap-2 text-red-500 mt-6 hover:text-red-600">
+        
+        
+        <button onClick={logout} className="flex items-center gap-2 text-red-500 mt-6 hover:text-red-600">
           <LogOut size={18} />
           Logout
         </button>

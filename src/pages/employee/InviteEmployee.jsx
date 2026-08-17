@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "../../components/common/InputField";
 import SelectField from "../../components/common/SelectField";
-import { sendInvitation } from "../../services/invitationServices";
+import { getDepartments, sendInvitation } from "../../services/invitationServices";
 import toast from "react-hot-toast";
 
 const InviteEmployee = () => {
 
+  const [departments, setDepartments] = useState([])
   const [formData, setFormData] = useState({
-    employeeId: "",
     fullName: "",
     email: "",
     phone: "",
@@ -25,7 +25,6 @@ const InviteEmployee = () => {
       toast.success(data.message);
 
       setFormData({
-        employeeId: "",
         fullName: "",
         email: "",
         phone: "",
@@ -38,6 +37,21 @@ const InviteEmployee = () => {
       toast.error(err.response?.data?.message || "Something went wrong");
     }
   };
+
+  const fetchDeparments = async () => {
+    try {
+      const data = await getDepartments();
+      setDepartments(data.departments)
+    } catch (err) {
+      console.log(err.message)
+    }
+
+  }
+
+
+  useEffect(() => {
+    fetchDeparments();
+  }, [])
 
   const handleChange = (e) => {
     setFormData({
@@ -61,15 +75,24 @@ const InviteEmployee = () => {
         onSubmit={handleSubmit}
       >
 
-        {/* Email */}
+        {/* Full Name */}
         <InputField
+          label="Full Name"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          placeholder="John Doe"
+        />
+
+        {/* Email */}
+        {/* <InputField
           label="Employee ID"
           type="text"
           name="employeeId"
           value={formData.employeeId}
           onChange={handleChange}
           placeholder="Enter your employee ID"
-        />
+        /> */}
 
         <InputField
           label="Email Address"
@@ -86,13 +109,7 @@ const InviteEmployee = () => {
           name="department"
           value={formData.department}
           onChange={handleChange}
-          options={[
-            "HR",
-            "Development",
-            "Design",
-            "Marketing",
-            "Sales",
-          ]}
+          options={departments.map((department) => department.name)}
         />
 
         {/* Designation */}
@@ -127,14 +144,7 @@ const InviteEmployee = () => {
           ]}
         />
 
-        {/* Full Name */}
-        <InputField
-          label="Full Name"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="John Doe"
-        />
+
 
         {/* Buttons */}
         <div className="col-span-2 flex justify-end gap-5 pt-6">

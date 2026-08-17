@@ -6,17 +6,25 @@ import Pagination from "../../components/common/Pagination";
 import Header from "../../components/common/Header";
 import StatsCards from "../../components/common/StatsCards";
 import { getLeaveStats } from "../../Data/statsCards";
-import { getLeaveSummary } from "../../services/leaveService";
+import { approveLeave, getAllLeaves, getLeaveSummary, reject } from "../../services/leaveService";
+import { useEmployee } from "../../context/EmployeeContext";
+
+import toast from "react-hot-toast";
 
 const Leaves = () => {
 
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("");
   const [leaveType, setLeaveType] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Pending");
   const [currentPage, setCurrentPage] = useState(1);
 
+
   const [summary, setSummary] = useState(null);
+
+  const [leaves, setLeaves] = useState([]);
+
+  const { employees, loading } = useEmployee();
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -33,7 +41,64 @@ const Leaves = () => {
     fetchSummary();
   }, []);
 
+
+  const fetchLeaves = async () => {
+    try {
+      const data = await getAllLeaves({
+        search,
+        department,
+        leaveType,
+        status,
+      });
+
+      console.log("FILTERED LEAVES RESPONSE:", data);
+
+      setLeaves(data.leaves ?? []);
+    } catch (error) {
+      console.log("LEAVE ERROR:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+
+    fetchLeaves();
+  }, [search, department, leaveType, status, loading]);
+
   const stats = getLeaveStats(summary);
+
+
+  const ApproveTheLeave = async (_id) => {
+    try {
+      const data = await approveLeave(_id);
+
+      toast.success(data.message);
+
+      await fetchLeaves();
+
+    } catch (error) {
+      console.log("error while approving leave", error);
+
+      toast.error(
+        error.response?.data?.message || "Failed to approve leave"
+      );
+    }
+  };
+
+  console.log("mergered employed", leaves);
+
+  const rejectLeave = async(_id) => {
+    try {
+      const data = await reject(_id);
+
+      toast.success("data.message");
+      await fetchLeaves();
+    } catch (error) {
+      console.log("while rejecting", error.message)
+    }
+  }
+
+
 
   return (
     <div className="min-h-screen bg-slate-100 p-6">
@@ -53,6 +118,7 @@ const Leaves = () => {
       <StatsCards stats={stats} />
 
       <LeaveFilters
+        employees={employees}
         search={search}
         setSearch={setSearch}
         department={department}
@@ -64,7 +130,8 @@ const Leaves = () => {
         setCurrentPage={setCurrentPage}
       />
 
-      <LeaveTable />
+
+      <LeaveTable leaves={leaves} ApproveTheLeave={ApproveTheLeave} rejectLeave={rejectLeave} />
 
       <Pagination
         currentPage={currentPage}

@@ -1,4 +1,4 @@
-const LeaveRow = ({ leave }) => {
+const LeaveRow = ({ item, ApproveTheLeave, rejectLeave }) => {
 
   const statusStyle = {
     Approved: "bg-green-100 text-green-700",
@@ -15,18 +15,18 @@ const LeaveRow = ({ leave }) => {
         <div className="flex items-center gap-3">
 
           <img
-            src={`https://ui-avatars.com/api/?name=${leave.name}&background=2563EB&color=fff`}
-            alt={leave.name}
+            src={`https://ui-avatars.com/api/?name=${item.employee.fullName}&background=2563EB&color=fff`}
+            alt={item.employee.fullName}
             className="w-10 h-10 rounded-full"
           />
 
           <div>
             <h3 className="font-semibold">
-              {leave.name}
+              {item.employee.fullName}
             </h3>
 
             <p className="text-sm text-gray-500">
-              {leave.email}
+              {item.email}
             </p>
           </div>
 
@@ -36,54 +36,77 @@ const LeaveRow = ({ leave }) => {
 
       {/* Department */}
       <td className="px-6 py-4">
-        {leave.department}
+        {item.employee.department}
       </td>
 
       {/* Leave Type */}
       <td className="px-6 py-4">
-        {leave.type}
+        {item.leaveType}
       </td>
 
       {/* From */}
       <td className="px-6 py-4">
-        {leave.from}
+        {item.fromDate}
       </td>
 
       {/* To */}
       <td className="px-6 py-4">
-        {leave.to}
+        {item.toDate}
       </td>
 
       {/* Days */}
       <td className="px-6 py-4">
-        {leave.days}
+        {item.days}
       </td>
 
       {/* Status */}
       <td className="px-6 py-4">
 
         <span
-          className={`px-3 py-1 rounded-full text-sm font-medium ${statusStyle[leave.status]}`}
+          className={`px-3 py-1 rounded-full text-sm font-medium ${statusStyle[item.status]}`}
         >
-          {leave.status}
+          {item.status}
         </span>
 
       </td>
 
       {/* Action */}
       <td className="px-4 py-4">
-  <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
+          {
+            item.status !== "Approved" && item.status !== "Rejected" ? (
+              <>
+                <button
+                  onClick={() => ApproveTheLeave(item._id)}
+                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm w-full sm:w-auto"
+                >
+                  Approve
+                </button>
 
-    <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm w-full sm:w-auto">
-      Approve
-    </button>
+                <button
+                  onClick={() => rejectLeave(item._id)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm w-full sm:w-auto"
+                >
+                  Reject
+                </button>
+              </>
+            ) : (
+              <div
+                className={`rounded-full px-2 ${item.status === "Approved"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                  }`}
+              >
+                {item.status === "Approved" ? "---------" : "---------"}
+              </div>
+            )
+          }
 
-    <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm w-full sm:w-auto">
-      Reject
-    </button>
 
-  </div>
-</td>
+
+
+        </div>
+      </td>
 
     </tr>
   );
