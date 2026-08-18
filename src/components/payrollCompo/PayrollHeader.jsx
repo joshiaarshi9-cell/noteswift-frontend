@@ -1,6 +1,6 @@
 import { Download, Plus } from "lucide-react";
 
-const PayrollHeader = () => {
+const PayrollHeader = ({ onGeneratePayroll }) => {
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       {/* Left */}
@@ -20,7 +20,10 @@ const PayrollHeader = () => {
           Export
         </button>
 
-        <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition shadow">
+        <button
+          onClick={onGeneratePayroll}
+          className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition shadow"
+        >
           <Plus size={18} />
           Generate Payroll
         </button>

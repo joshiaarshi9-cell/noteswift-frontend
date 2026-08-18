@@ -1,64 +1,55 @@
-import { useState } from "react";
+import { Eye, SquarePen } from "lucide-react";
 
-import Header from "../../components/common/Header";
-
-import PayrollStats from "../../components/payrollCompo/PayrollStats";
-import PayrollFilters from "../../components/payrollCompo/PayrollFilters";
-import PayrollTable from "../../components/payrollCompo/PayrollTable";
-import PayrollPagination from "../../components/payrollCompo/PayrollPagination";
-
-const Payroll = () => {
-  const [search, setSearch] = useState("");
-  const [department, setDepartment] = useState("");
-  const [status, setStatus] = useState("");
-  const [month, setMonth] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Backend se baad me aayega
-  const payrolls = [];
-  const loading = false;
-  const stats = {};
+const PayrollRow = ({ employee }) => {
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Paid":
+        return "bg-green-100 text-green-700";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "Processing":
+        return "bg-blue-100 text-blue-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-100 p-6 space-y-6">
-
-      <Header
-        title="Payroll"
-        subtitle="Manage employee payroll and salary records"
-        titleClassName="text-5xl font-bold"
-        subtitleClassName="text-lg text-blue-100/90"
-        rightContent={
-          <button className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition">
-            Export
-          </button>
-        }
-      />
-
-      <PayrollStats stats={stats} />
-
-      <PayrollFilters
-        search={search}
-        setSearch={setSearch}
-        department={department}
-        setDepartment={setDepartment}
-        status={status}
-        setStatus={setStatus}
-        month={month}
-        setMonth={setMonth}
-        setCurrentPage={setCurrentPage}
-      />
-
-      <PayrollTable
-        payrolls={payrolls}
-        loading={loading}
-      />
-
-      <PayrollPagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-
-    </div>
+    <tr className="border-b hover:bg-gray-50 transition">
+      <td className="px-6 py-4 font-medium">{employee.name}</td>
+      <td className="px-6 py-4">{employee.department}</td>
+      <td className="px-6 py-4">${employee.basicSalary}</td>
+      <td className="px-6 py-4 text-green-600">
+        +${employee.bonus}
+      </td>
+      <td className="px-6 py-4 text-red-600">
+        -${employee.deduction}
+      </td>
+      <td className="px-6 py-4 font-semibold">
+        ${employee.netSalary}
+      </td>
+      <td className="px-6 py-4">
+        <span
+          className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+            employee.status
+          )}`}
+        >
+          {employee.status}
+        </span>
+      </td>
+      <td className="px-6 py-4">
+        <div className="flex gap-3">
+          <Eye
+            size={18}
+            className="text-blue-600 cursor-pointer hover:scale-110"
+          />
+          <SquarePen
+            size={18}
+            className="text-green-600 cursor-pointer hover:scale-110"
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 
