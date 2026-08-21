@@ -1,23 +1,18 @@
-import { useState } from "react";
+import { Eye, SquarePen } from "lucide-react";
 
-import Header from "../../components/common/Header";
-
-import PayrollStats from "../../components/payrollCompo/PayrollStats";
-import PayrollFilters from "../../components/payrollCompo/PayrollFilters";
-import PayrollTable from "../../components/payrollCompo/PayrollTable";
-import PayrollPagination from "../../components/payrollCompo/PayrollPagination";
-
-const Payroll = () => {
-  const [search, setSearch] = useState("");
-  const [department, setDepartment] = useState("");
-  const [status, setStatus] = useState("");
-  const [month, setMonth] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Backend se baad me aayega
-  const payrolls = [];
-  const loading = false;
-  const stats = {};
+const PayrollRow = ({ employee }) => {
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Paid":
+        return "bg-green-100 text-green-700";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "Processing":
+        return "bg-blue-100 text-blue-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-100 p-6 space-y-6">
@@ -59,8 +54,6 @@ const Payroll = () => {
       />
 
     </div>
-
-    
   );
 };
 
