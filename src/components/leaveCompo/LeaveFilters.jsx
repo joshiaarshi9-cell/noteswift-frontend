@@ -8,6 +8,9 @@ const LeaveFilters = ({
   status,
   setStatus,
   setCurrentPage,
+  
+  departments,
+  setDepartments
 }) => {
   const handleReset = () => {
     setSearch("");
@@ -44,11 +47,14 @@ const LeaveFilters = ({
           className="border rounded-xl px-4 py-3"
         >
           <option value="">All Departments</option>
-          <option value="IT">IT</option>
-          <option value="HR">HR</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Finance">Finance</option>
-          <option value="Sales">Sales</option>
+          {departments.map((dept) => (
+            <option
+              key={dept._id}
+              value={dept._id}
+            >
+              {dept.name}
+            </option>
+          ))}
         </select>
 
         {/* Leave Type */}

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const LeaveRow = ({ item, ApproveTheLeave, rejectLeave }) => {
 
   const statusStyle = {
@@ -5,6 +7,10 @@ const LeaveRow = ({ item, ApproveTheLeave, rejectLeave }) => {
     Pending: "bg-orange-100 text-orange-700",
     Rejected: "bg-red-100 text-red-700",
   };
+
+  useEffect(() => {
+    console.log(item)
+  })
 
   return (
     <tr className="border-b hover:bg-slate-50">
@@ -36,7 +42,7 @@ const LeaveRow = ({ item, ApproveTheLeave, rejectLeave }) => {
 
       {/* Department */}
       <td className="px-6 py-4">
-        {item.employee.department}
+        {item.employee.department.name}
       </td>
 
       {/* Leave Type */}

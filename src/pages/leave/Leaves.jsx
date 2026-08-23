@@ -10,11 +10,13 @@ import { approveLeave, getAllLeaves, getLeaveSummary, reject } from "../../servi
 import { useEmployee } from "../../context/EmployeeContext";
 
 import toast from "react-hot-toast";
+import { getDepartments } from "../../services/invitationServices";
 
 const Leaves = () => {
 
   const [search, setSearch] = useState("");
-  const [department, setDepartment] = useState("");
+  const [departments, setDepartments] = useState([]);
+  const [department, setDepartment] = useState("")
   const [leaveType, setLeaveType] = useState("");
   const [status, setStatus] = useState("Pending");
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,6 +69,23 @@ const Leaves = () => {
 
   const stats = getLeaveStats(summary);
 
+  // fetch deapartments
+
+  const fetchDepartments = async () => {
+    try {
+
+      const data = await getDepartments();
+      setDepartments(data.departments || [])
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchDepartments();
+  },[])
+
 
   const ApproveTheLeave = async (_id) => {
     try {
@@ -87,7 +106,7 @@ const Leaves = () => {
 
   console.log("mergered employed", leaves);
 
-  const rejectLeave = async(_id) => {
+  const rejectLeave = async (_id) => {
     try {
       const data = await reject(_id);
 
@@ -121,8 +140,13 @@ const Leaves = () => {
         employees={employees}
         search={search}
         setSearch={setSearch}
+
         department={department}
         setDepartment={setDepartment}
+
+        departments={departments}
+        setDepartments={setDepartments}
+
         leaveType={leaveType}
         setLeaveType={setLeaveType}
         status={status}

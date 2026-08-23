@@ -11,7 +11,7 @@ const InviteEmployee = () => {
     fullName: "",
     email: "",
     phone: "",
-    department: "",
+    departmentId: "",
     designation: "",
     role: "Employee",
   });
@@ -20,6 +20,7 @@ const InviteEmployee = () => {
     e.preventDefault();
 
     try {
+      console.log(formData)
       const data = await sendInvitation(formData);
 
       toast.success(data.message);
@@ -28,7 +29,7 @@ const InviteEmployee = () => {
         fullName: "",
         email: "",
         phone: "",
-        department: "",
+        departmentId: "",
         designation: "",
         role: "employee",
       });
@@ -41,6 +42,7 @@ const InviteEmployee = () => {
   const fetchDeparments = async () => {
     try {
       const data = await getDepartments();
+      console.log("department", data)
       setDepartments(data.departments)
     } catch (err) {
       console.log(err.message)
@@ -106,10 +108,10 @@ const InviteEmployee = () => {
         {/* Department */}
         <SelectField
           label="Department"
-          name="department"
-          value={formData.department}
+          name="departmentId"
+          value={formData.departmentId}
           onChange={handleChange}
-          options={departments.map((department) => department.name)}
+          options={departments}
         />
 
         {/* Designation */}
@@ -139,7 +141,7 @@ const InviteEmployee = () => {
           onChange={handleChange}
           options={[
             "admin",
-            "hr",
+            "manager",
             "employee",
           ]}
         />

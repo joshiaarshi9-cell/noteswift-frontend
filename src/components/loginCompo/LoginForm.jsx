@@ -4,6 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"
+import api from "../../api/axios";
 
 const LoginForm = () => {
 
@@ -22,6 +23,9 @@ const LoginForm = () => {
       const data = await login({
         email,
         password,
+      });
+      await api.get("/auth/me", {
+        withCredentials: true,
       });
 
       // Optional: Success toast
