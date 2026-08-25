@@ -26,8 +26,7 @@ const Dashboard = () => {
   // Department
   // =========================
 
-  const departmentName =
-    user?.department?.name?.trim().toLowerCase();
+  const departmentCode = user?.department?.code?.trim().toLowerCase();
 
 
   // =========================
@@ -154,7 +153,7 @@ const Dashboard = () => {
       ========================= */}
 
       {user.role === "manager" &&
-        departmentName === "finance" && (
+        departmentCode === "fin" && (
           <>
             <StatsCards stats={stats} />
 
@@ -182,7 +181,7 @@ const Dashboard = () => {
       ========================= */}
 
       {user.role === "manager" &&
-        departmentName === "academic" && (
+        departmentCode === "ada" && (
           <>
             <StatsCards stats={stats} />
 
@@ -210,8 +209,8 @@ const Dashboard = () => {
       ========================= */}
 
       {user.role === "manager" &&
-        (departmentName === "human resources" ||
-          departmentName === "hr") && (
+        (departmentCode === "human resources" ||
+          departmentCode === "hr") && (
             
           <>
             <StatsCards stats={stats} />
