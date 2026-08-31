@@ -28,7 +28,7 @@ import Profile from "../pages/employee/Profile";
 // ATTENDANCE
 // =========================
 import Attendance from "../pages/Attendance/Attendance";
-import MyAttendance from "../pages/attendance/MyAttendance";
+import MyAttendance from "../pages/Attendance/MyAttendance";
 
 // =========================
 // LEAVE
