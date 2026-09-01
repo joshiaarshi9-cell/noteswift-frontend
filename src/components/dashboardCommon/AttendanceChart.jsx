@@ -1,5 +1,4 @@
 
-
 const AttendanceChart = ({ overview }) => {
 
   // console.log(overview); 

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
@@ -8,9 +7,9 @@ const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="h-screen flex overflow-hidden">
+    <div className="h-screen w-full flex overflow-hidden">
 
-      {/* Mobile Overlay */}
+      {/* ================= MOBILE OVERLAY ================= */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
@@ -18,7 +17,7 @@ const DashboardLayout = () => {
         />
       )}
 
-      {/* Sidebar */}
+      {/* ================= SIDEBAR ================= */}
       <aside
         className={`
           fixed lg:static
@@ -26,6 +25,7 @@ const DashboardLayout = () => {
           z-50
           h-screen
           w-[70%] max-w-xs lg:w-64
+          shrink-0
           bg-white
           transition-transform duration-300 ease-in-out
           ${
@@ -38,9 +38,10 @@ const DashboardLayout = () => {
         <Sidebar closeSidebar={() => setSidebarOpen(false)} />
       </aside>
 
-      {/* Right */}
-      <div className="flex-1 flex flex-col h-screen">
+      {/* ================= RIGHT SIDE ================= */}
+      <div className="flex-1 min-w-0 flex flex-col h-screen">
 
+        {/* ================= TOPBAR ================= */}
         <div className="h-16 shrink-0 border-b bg-white z-30">
           <Topbar
             sidebarOpen={sidebarOpen}
@@ -48,7 +49,20 @@ const DashboardLayout = () => {
           />
         </div>
 
-        <main className="flex-1 overflow-y-auto bg-gray-100 p-6 ml-5">
+        {/* ================= MAIN CONTENT ================= */}
+        <main
+          className="
+            flex-1
+            min-w-0
+            overflow-y-auto
+            overflow-x-hidden
+            bg-gray-100
+            p-3
+            sm:p-4
+            md:p-6
+            lg:p-6
+          "
+        >
           <Outlet />
         </main>
 
